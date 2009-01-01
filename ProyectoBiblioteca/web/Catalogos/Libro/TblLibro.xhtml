@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../TemplatePrincipal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="frmLibros" acceptcharset="ISO-8859-1">
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+
+            <!-- <p:dataTable id="tablaLibros" value=" var="cliente" -->
+            <p:dataTable id="tablaLibros"   value="#{libroBean.lstLibro}"  var="libro"         
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         filteredValue="#{libroBean.lstdatosLibroFiltrada}"
+                         widgetVar="wTablaLibros">
+                <f:facet name="header">
+
+
+
+
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px" 
+                                     onkeyup="PF('wTablaLibros').filter()"/>
+                        <p:commandButton action="FrmLibro.xhtml?faces-redirect=true"
+                                         icon="ui-icon-circle-plus"/>
+                    </p:outputPanel>                    
+                </f:facet>
+
+
+                <p:column headerText="CODIGO LIBRO" filterBy="#{libro.codigolibro}">
+                    <h:outputLabel value="#{libro.codigolibro}"/>
+                </p:column>
+
+
+                <p:column headerText="TITULO" filterBy="#{libro.titulolibro}">
+                    <h:outputLabel value="#{libro.titulolibro}"/>
+                </p:column>
+
+                <p:column headerText="EXISTENCIA" filterBy="#{libro.existencia}">
+                    <h:outputLabel value="#{libro.existencia}"/>
+                </p:column>
+
+
+                <p:column headerText="PRECIO" filterBy="#{libro.precio}">
+                    <h:outputLabel value="#{libro.precio}"/>
+                </p:column>
+
+
+
+
+                <p:column headerText="CATEGORIA" filterBy="#{libro.codigocategoria.nombrecategoria}">
+                    <h:outputLabel value="#{libro.codigocategoria.nombrecategoria}"/>
+                </p:column>
+
+
+                <p:column headerText="AUTOR" filterBy="#{libro.codigoautor.nombreautor}">
+                    <h:outputLabel value="#{libro.codigoautor.nombreautor}"/>
+                </p:column>
+
+
+
+
+
+                <p:column headerText="Acciones" style="width: 20%">
+                    <p:panelGrid>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();"
+                                             ajax="true" update="formModificar">
+                                <f:setPropertyActionListener   target="#{libroBean.libroSelected}"   value="#{libro}"/>
+                                <f:setPropertyActionListener target="#{autoCompleteBeanAutor.autor}" value="#{libro.codigoautor}" />  
+                                <f:setPropertyActionListener target="#{autoCompleteBeanCategLibro.categorialibro}" value="#{libro.codigocategoria}" />  
+                            </p:commandButton>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show()" >
+                                <f:setPropertyActionListener target="#{libroBean.libroSelected}" value="#{libro}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:panelGrid>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+
+
+
+
+        <p:confirmDialog message="¿Realmente desea borrar el registro?" 
+                         header="Mensaje de confirmación"
+                         widgetVar="confirmacion">
+            <h:form>
+                <p:commandButton id="confirm" value="Si" 
+                                 oncomplete="PF('confirmacion').hide()"  actionListener="#{libroBean.eliminarLibro()}"   update=":frmLibros:tablaLibros"/>
+                <p:commandButton id="decline" value="No" onclick="PF('confirmacion').hide()"  type="button"/>
+            </h:form>
+        </p:confirmDialog>
+
+
+
+        <h:form id="formModificar">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificación de datos del libro" >
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="codigolibro" value="CODIGO"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText id="codigolibro" value="#{libroBean.libroSelected.codigolibro}"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="titulo" value="TITULO"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="titulo" value="#{libroBean.libroSelected.titulolibro}"/>
+                            </p:column>
+                        </p:row>
+
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="existencia" value="EXISTENCIA"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="existencia" value="#{libroBean.libroSelected.existencia}"/>
+                            </p:column>
+                        </p:row>
+
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="precio" value="PRECIO"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="precio" value="#{libroBean.libroSelected.precio}"/>
+                            </p:column>
+                        </p:row>
+
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="autor" value="AUTOR" />
+                            </p:column>
+                            <p:column>
+                                <p:autoComplete id="autor" value="#{autoCompleteBeanAutor.autor}" completeMethod="#{autoCompleteBeanAutor.completeAutorDespacho}" var="m" itemLabel="#{m.nombreautor}" itemValue="#{m}" converter="convertidorAutor" forceSelection="true" dropdown="true">                                                                  
+                                    <p:column>
+                                        #{m.codigoautor}
+                                    </p:column>
+                                    <p:column>
+                                        #{m.nombreautor} 
+                                    </p:column>                                                         
+                                </p:autoComplete>  
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="categorialibro" value="CATEGORIA LIBRO" />
+                            </p:column>
+                            <p:column>
+                                <p:autoComplete id="categorialibro" value="#{autoCompleteBeanCategLibro.categorialibro}" completeMethod="#{autoCompleteBeanCategLibro.completeCategorialibroDespacho}" var="m" itemLabel="#{m.nombrecategoria}" itemValue="#{m}" converter="convertidorCategoriaLibro" forceSelection="true" dropdown="true">                                                                  
+                                    <p:column>
+                                        #{m.codigocategoria}
+                                    </p:column>
+                                    <p:column>
+                                        #{m.nombrecategoria} 
+                                    </p:column>                                                         
+                                </p:autoComplete>     
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:commandButton value="Guardar cambios"
+                                                 actionListener="#{libroBean.actualizarLibro()}"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

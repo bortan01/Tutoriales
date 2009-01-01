@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../TemplatePrincipal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="top">
+       SISTEMA DE PRESTAMO DE LIBROS
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form>
+            <p:panel header="Nuevo Libro">
+                <p:panelGrid columns="2" style="width: 100%">
+                    <h:outputLabel for="codigolibro" value="COD.LIBRO *" />
+                    <p:inputText id="codigolibro" value="#{libroBean.libroSelected.codigolibro}" required="true" label="CODIGO" />
+                    <h:outputLabel for="titulolibro" value="TITULO  *" />
+                    <p:inputText id="titulolibro" value="#{libroBean.libroSelected.titulolibro}" required="true" label="TITULO"/> 
+                    <h:outputLabel for="existencia" value="EXISTENCIA *" />
+                    <p:inputText id="existencia" value="#{libroBean.libroSelected.existencia}" required="true" label="EXISTENCIA" />
+                    <h:outputLabel for="precio" value="PRECIO  *" />
+                    <p:inputText id="precio" value="#{libroBean.libroSelected.precio}" required="true" label="PRECIO"/> 
+
+                    <h:outputLabel for="autor" value="AUTOR *" />
+                    <p:autoComplete id="autor" value="#{autoCompleteBeanAutor.autor}" completeMethod="#{autoCompleteBeanAutor.completeAutorDespacho}" var="m" itemLabel="#{m.nombreautor}" itemValue="#{m}" converter="convertidorAutor" forceSelection="true" dropdown="true">                                                                  
+                        <p:column>
+                            #{m.codigoautor}
+                        </p:column>
+                        <p:column>
+                            #{m.nombreautor} 
+                        </p:column>                                                         
+                    </p:autoComplete>    
+
+
+
+                    <h:outputLabel for="categorialibro" value="CATEGORIA LIBRO*" />
+                    <p:autoComplete id="categorialibro" value="#{autoCompleteBeanCategLibro.categorialibro}" completeMethod="#{autoCompleteBeanCategLibro.completeCategorialibroDespacho}" var="m" itemLabel="#{m.nombrecategoria}" itemValue="#{m}" converter="convertidorCategoriaLibro" forceSelection="true" dropdown="true">                                                                  
+                        <p:column>
+                            #{m.codigocategoria}
+                        </p:column>
+                        <p:column>
+                            #{m.nombrecategoria} 
+                        </p:column>                                                         
+                    </p:autoComplete>      
+
+                    <f:facet name="footer">                        
+                        <p:commandButton id="guardar" value="Guardar" icon="ui-icon-check" style="margin:0" action="#{libroBean.insertarLibro()}"></p:commandButton>                                  
+                        <p:commandButton id="cancelar" value="Cancelar" icon="ui-icon-circle-close" style="margin:0" action="TblLibro" process="@this"></p:commandButton>   
+                    </f:facet>
+
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+    <ui:define name="bottom">
+        UES-FMP 2017
+    </ui:define>
+
+</ui:composition>
+
