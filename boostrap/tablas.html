@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tablas</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<!-- .table-inverse Nos permite cambiar los colores de la tabla a osucors -->
+				<!-- .table-striped Nos permite alternar colores entre cada fila -->
+				<!-- .table-bordered Nos permite agregarle bordes a la tabla -->
+				<!-- .table-hover Nos permite agregarle un hover a las filas -->
+				<!-- .table-sm Nos permite hacer la tabla mas pequeña eliminando paddings -->
+				<!-- .table-responsive Nos permite adaptar nuestra tabla a dispositivos moviles -->
+				<table class="table table-bordered table-inverse table-hover table-reponsive">
+					<!-- Tambien podemos cambiar el <thead> a oscuro con .thead-inverse -->
+					<!-- Otra alternariva es .thead-default -->
+					<thead class="thead-default">
+						<th>Nombre</th>
+						<th>Edad</th>
+						<th>Pais</th>
+					</thead>
+
+					<!-- .table-active -->
+					<!-- .table-success -->
+					<!-- .table-warning -->
+					<!-- .table-danger -->
+					<!-- .table-info -->
+					<tr class="">
+						<td>Carlos</td>
+						<td>21</td>
+						<td>Mexico</td>
+					</tr>
+					
+					<!-- .bg-primary -->
+					<!-- .bg-success -->
+					<!-- .bg-warning -->
+					<!-- .bg-danger -->
+					<!-- .bg-info -->
+					<tr class="bg-info">
+						<td>Alejandro</td>
+						<td>34</td>
+						<td>España</td>
+					</tr>
+
+					<tr>
+						<td>Cesar</td>
+						<td>37</td>
+						<td>Colombia</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
