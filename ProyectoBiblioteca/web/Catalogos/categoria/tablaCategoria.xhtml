@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../TemplatePrincipal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    
+    <ui:define name="content">
+        <h:form id="formularioCategoria" acceptcharset="ISO-8859-1">
+            <!--> este es para colocar mensajes</!-->
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+
+            <p:dataTable id="tablaCategoria" value="#{categoriaBean.listaCategoria}" var="VariableCategoria"
+                         paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         filteredValue="#{categoriaBean.listaFiltrada}"
+                         widgetVar="wTablaCategoria">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px" 
+                                     onkeyup="PF('wTablaCategoria').filter()"/>
+                        <p:commandButton action="FormularioCategoria.xhtml?faces-redirect=true"
+                                         icon="ui-icon-circle-plus"/>
+                    </p:outputPanel> 
+                </f:facet>
+
+                <p:column headerText="Codigo de Categoria" filterBy="#{VariableCategoria.codigocategoria}">
+                    <h:outputLabel value="#{VariableCategoria.codigocategoria}"/>
+                </p:column>
+
+                <p:column headerText="Nombre de Categoria" filterBy="#{VariableCategoria.nombrecategoria}">
+                    <h:outputLabel value="#{VariableCategoria.nombrecategoria}"/>
+                </p:column>
+
+                <p:column headerText="Acciones" style="width: 12%">
+                    <p:panelGrid>
+                        <p:column headerText="">
+                            <!-->el dlg modificar es para mostrar el mensaje</!-->
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();"
+                                             ajax="true" update="formModificar">
+                                <f:setPropertyActionListener 
+                                    target="#{categoriaBean.categoriaSeleccionada}" 
+                                    value="#{VariableCategoria}"/>
+                            </p:commandButton>
+                        </p:column>
+
+
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();" ajax="true" update="formularioCategoria:tablaCategoria"><!-->tabla autores es el id de la tabla</!-->
+                                <f:setPropertyActionListener                                                                  
+                                    target="#{categoriaBean.categoriaSeleccionada}" 
+                                    value="#{VariableCategoria}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:panelGrid>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+        
+        <p:confirmDialog message="¿Realmente desea borrar el registro?" 
+                         header="Mensaje de confirmación"
+                         widgetVar="confirmacion" >
+            <h:form>
+                <p:commandButton id="confirm"
+                                 value="Si" 
+                                 oncomplete="PF('confirmacion').hide()" 
+                                 actionListener="#{categoriaBean.eliminarCategoria()}"/>
+
+                <p:commandButton id="decline" value="No" 
+                                 onclick="PF('confirmacion').hide()" 
+                                 type="button"/>
+            </h:form>
+        </p:confirmDialog>
+
+        <h:form id="formModificar"  >
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificación de datos de Categoria" >
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="idCategoria" value="ID DE CATEGORIA"/> <!-->el idAutor es de output text</!-->
+                            </p:column>
+                            <p:column>
+                                <h:outputText id="idCategoria" value="#{categoriaBean.categoriaSeleccionada.codigocategoria}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="nombres" value="NOMBRE DE CATEGORIA"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nombres" value="#{categoriaBean.categoriaSeleccionada.nombrecategoria}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:commandButton value="Guardar cambios"
+                                                 actionListener="#{categoriaBean.actualizaCategoria()}"/>
+                            </p:column>
+                        </p:row>
+
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+ 
+
+</ui:composition>
