@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08-22-2017 09:02:15 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Municipio" table="municipio" schema="public" optimistic-lock="version">
+        <id name="idmunicipio" type="int">
+            <column name="idmunicipio" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="departamento" class="modelo.Departamento" fetch="select">
+            <column name="iddepto" />
+        </many-to-one>
+        <property name="nombremunicipio" type="string">
+            <column name="nombremunicipio" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+    <class name="models.Evento" table="eventos">
+        <id name="id" type="int">
+            <generator class="increment"/>
+        </id>
+        <property name="nombre" type="string"/>
+        <property name="fechaInicio" column="fecha_inicio" type="date"/>
+        <property name="duracion" type="integer"/>
+    </class>
+</hibernate-mapping>
+
