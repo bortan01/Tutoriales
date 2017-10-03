@@ -1,4 +1,3 @@
-
 package controladores.beans;
 
 import java.io.Serializable;
@@ -16,19 +15,15 @@ import session.beans.AutorFacade;
  *
  * @author Miranda
  */
-@ManagedBean (name="autorBean")
+@ManagedBean(name = "autorBean")
 @ViewScoped
-public class AutorBean implements Serializable{
-    
- 
+public class AutorBean implements Serializable {
+
     @Inject
     AutorFacade AutorFacade;
     Autor AutorSeleccionado;
     List<Autor> lstAutor;
     List<Autor> lstdatosAutorFiltrada;
-
-  
-    private String opcionActualGenero;
 
     @PostConstruct
     public void init() {
@@ -36,68 +31,47 @@ public class AutorBean implements Serializable{
         buscarTodos();
     }
 
+    public AutorBean() {
+    }
+
     public List<Autor> buscarTodos() {
         lstAutor = AutorFacade.findAll();
         return lstAutor;
     }
 
-    public AutorBean() {
-    }
-
-    public String insertarAutor() {
-        AutorFacade.create(AutorSeleccionado);
-            return "TblAlumnos.xhtml?faces-redirect=true";
-    }
-
-    public String elimiinarAutor() {
-        AutorFacade.remove(AutorSeleccionado);   
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Datos Eliminados"));
-        return "TblAlumnos.xhtml?faces-redirect=true";
-    }
-
-    public String actualizarAutor() {
-        AutorFacade.edit(AutorSeleccionado);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Datos Modificados"));
-        return "TblAlumnos.xhtml?faces-redirect=true";
-    }
-
-    public AutorFacade getAlumnoFacade() {
+    public AutorFacade getAutorFacade() {
         return AutorFacade;
     }
 
-    public void setAlumnoFacade(AutorFacade alumnoFacade) {
-        this.AutorFacade = alumnoFacade;
+    public void setAutorFacade(AutorFacade AutorFacade) {
+        this.AutorFacade = AutorFacade;
     }
 
-    public Autor getAlumnoSeleccionado() {
+    public Autor getAutorSeleccionado() {
         return AutorSeleccionado;
     }
 
-    public void setAlumnoSeleccionado(Autor alumnoSeleccionado) {
-        this.AutorSeleccionado = alumnoSeleccionado;
+    public void setAutorSeleccionado(Autor AutorSeleccionado) {
+        this.AutorSeleccionado = AutorSeleccionado;
     }
 
-    public List<Autor> getLstAlumno() {
+    public List<Autor> getLstAutor() {
         return lstAutor;
     }
 
-    public void setLstAlumno(List<Autor> lstAlumno) {
-        this.lstAutor = lstAlumno;
+    public void setLstAutor(List<Autor> lstAutor) {
+        this.lstAutor = lstAutor;
     }
 
-    public List<Autor> getLstdatosAlumnoFiltrada() {
+    public List<Autor> getLstdatosAutorFiltrada() {
         return lstdatosAutorFiltrada;
     }
 
-    public void setLstdatosAlumnoFiltrada(List<Autor> lstdatosAlumnoFiltrada) {
-        this.lstdatosAutorFiltrada = lstdatosAlumnoFiltrada;
-    }
-public String getOpcionActualGenero() {
-        return opcionActualGenero;
+    public void setLstdatosAutorFiltrada(List<Autor> lstdatosAutorFiltrada) {
+        this.lstdatosAutorFiltrada = lstdatosAutorFiltrada;
     }
 
-    public void setOpcionActualGenero(String opcionActualGenero) {
-        this.opcionActualGenero = opcionActualGenero;
-    }
-
+    
+    
+    
 }
