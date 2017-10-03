@@ -35,9 +35,119 @@
                     <h:outputLabel value="#{VariableAutor.nombreautor}"/>
                 </p:column>
 
+                 <p:column headerText="Acciones" style="width: 12%">
+                    <p:panelGrid>
+                        <p:column headerText="">
+                            <!-->el dlg modificar es para mostrar el mensaje</!-->
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();"
+                                             ajax="true" update="formModificar">
+                                <f:setPropertyActionListener 
+                                    target="#{autorBean.autorSeleccionado}" 
+                                    value="#{VariableAutor}"/>
+                            </p:commandButton>
+                        </p:column>
+                        
+                        
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();" ajax="true" update="frmAutor:tablaAutores"><!-->tabla autores es el id de la tabla</!-->
+                                <f:setPropertyActionListener 
+                                    target="#{autorBean.autorSeleccionado}" 
+                                    value="#{VariableAutor}"/>
+                            </p:commandButton>
+                        </p:column>
+                        
+                    </p:panelGrid>
+                </p:column>
                 
             </p:dataTable>
             
+        </h:form>
+        
+          <h:form id="formModificar"  >
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificación de datos del Alumno" >
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="idAutor" value="ID DE AUTOR"/> <!-->el idAutor es de output text</!-->
+                            </p:column>
+                            <p:column>
+                                <h:outputText id="idAutor" value="#{autorBean.autorSeleccionado.codigoautor}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="nombres" value="NOMBRE"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nombres" value="#{alumnoBean.alumnoSeleccionado.nombre}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="apellidos" value="APELLIDO"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="apellidos" value="#{alumnoBean.alumnoSeleccionado.apellido}"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="direccion" value="DIRECCION"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="direccion" value="#{alumnoBean.alumnoSeleccionado.direccion}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="fechanacimiento" value="FECHA DE NACIMIENTO"/>
+                            </p:column>
+                            <p:column>
+                                <p:calendar id="fechanacimiento" value="#{alumnoBean.alumnoSeleccionado.fechanacimiento}"
+                                            showOn="button" pattern="dd-MM-yyyy" navigator="true"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="fechaingreso" value="FECHA DE INGRESO"/>
+                            </p:column>
+                            <p:column>
+                                <p:calendar id="fechaingreso" value="#{alumnoBean.alumnoSeleccionado.fechaingreso}"
+                                            showOn="button" pattern="dd-MM-yyyy" navigator="true"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="TIPO DE GENERO"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu  value="#{alumnoBean.alumnoSeleccionado.genero}">
+                                    <f:selectItem itemLabel="Seleccione genero"  itemValue="" />
+                                    <f:selectItems value="#{alumnoBean.opcionesGenero}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+
+                        <p:row> 
+                            <p:column>
+                                <p:outputLabel for="activo" value="ESTADO"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanCheckbox id="activo" value="#{alumnoBean.alumnoSeleccionado.estado}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:commandButton value="Guardar cambios"
+                                                 actionListener="#{alumnoBean.actualizarAlumno()}"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
         </h:form>
     </ui:define>
 
