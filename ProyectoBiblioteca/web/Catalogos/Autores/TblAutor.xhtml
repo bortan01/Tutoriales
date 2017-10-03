@@ -12,7 +12,7 @@
             <p:growl autoUpdate="true" showDetail="true"/>
             <p:messages autoUpdate="true" closable="true" showDetail="true"/>
             
-            <p:dataTable id="tablaAutores" value="#{autorBean.lstAutor}" var="autor"
+            <p:dataTable id="tablaAutores" value="#{autorBean.lstAutor}" var="VariableAutor"
                          paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"
                          filteredValue="#{autorBean.lstdatosAutorFiltrada}"
@@ -26,6 +26,15 @@
                                          icon="ui-icon-circle-plus"/>
                     </p:outputPanel> 
                 </f:facet>
+                
+                <p:column headerText="Codigo Autor" filterBy="#{VariableAutor.codigoautor}">
+                    <h:outputLabel value="#{VariableAutor.codigoautor}"/>
+                </p:column>
+
+                <p:column headerText="Nombre" filterBy="#{VariableAutor.nombreautor}">
+                    <h:outputLabel value="#{VariableAutor.nombreautor}"/>
+                </p:column>
+
                 
             </p:dataTable>
             
