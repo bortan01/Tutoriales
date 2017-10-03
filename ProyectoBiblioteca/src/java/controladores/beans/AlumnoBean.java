@@ -47,19 +47,19 @@ public class AlumnoBean implements Serializable{
 
     public String insertarAlumno() {
         alumnoFacade.create(alumnoSeleccionado);
-            return "TblAlumnos.xhtml?faces-redirect=true";
+            return "TblAlumno.xhtml?faces-redirect=true";
     }
 
     public String eliminarAlumno() {
         alumnoFacade.remove(alumnoSeleccionado);   
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Datos Eliminados"));
-        return "TblAlumnos.xhtml?faces-redirect=true";
+        return "TblAlumno.xhtml?faces-redirect=true";
     }
 
     public String actualizarAutor() {
         alumnoFacade.edit(alumnoSeleccionado);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Datos Modificados"));
-        return "TblAlumnos.xhtml?faces-redirect=true";
+        return "TblAlumno.xhtml?faces-redirect=true";
     }
 
     public AlumnoFacade getAlumnoFacade() {

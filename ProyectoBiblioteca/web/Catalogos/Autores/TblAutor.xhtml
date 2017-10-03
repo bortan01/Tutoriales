@@ -61,19 +61,21 @@
 
             </p:dataTable>
         </h:form>
-            <p:confirmDialog message="¿Realmente desea borrar el registro?" 
-                             header="Mensaje de confirmación"
-                             widgetVar="confirmacion" >
-                <h:form>
-                    <p:commandButton id="confirm" value="Si" 
-                                     oncomplete="PF('confirmacion').hide()" 
-                                     actionListener="#{autorBean.eliminarAutor()}"/>
+        
+        <p:confirmDialog message="¿Realmente desea borrar el registro?" 
+                         header="Mensaje de confirmación"
+                         widgetVar="confirmacion" >
+            <h:form>
+                <p:commandButton id="confirm"
+                                 value="Si" 
+                                 oncomplete="PF('confirmacion').hide()" 
+                                 actionListener="#{autorBean.eliminarAutor()}"/>
 
-                    <p:commandButton id="decline" value="No" 
-                                     onclick="PF('confirmacion').hide()" 
-                                     type="button"/>
-                </h:form>
-            </p:confirmDialog>
+                <p:commandButton id="decline" value="No" 
+                                 onclick="PF('confirmacion').hide()" 
+                                 type="button"/>
+            </h:form>
+        </p:confirmDialog>
 
 
         <h:form id="formModificar"  >
@@ -96,7 +98,7 @@
                                 <p:inputText id="nombres" value="#{autorBean.autorSeleccionado.nombreautor}"/>
                             </p:column>
                         </p:row>
-                         <p:row>
+                        <p:row>
                             <p:column>
                                 <h:commandButton value="Guardar cambios"
                                                  actionListener="#{autorBean.actualizarAutor()}"/>

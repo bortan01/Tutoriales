@@ -34,11 +34,6 @@ public class AutorBean implements Serializable {
     public AutorBean() {
     }
 
-    public List<Autor> buscarTodos() {
-        lstAutor = AutorFacade.findAll();
-        return lstAutor;
-    }
-
     public AutorFacade getAutorFacade() {
         return AutorFacade;
     }
@@ -71,6 +66,11 @@ public class AutorBean implements Serializable {
         this.lstdatosAutorFiltrada = lstdatosAutorFiltrada;
     }
 
+    
+    public List<Autor> buscarTodos() {
+        lstAutor = AutorFacade.findAll();
+        return lstAutor;
+    }
     public String eliminarAutor() {
         AutorFacade.remove(AutorSeleccionado);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Datos Eliminados"));
@@ -82,5 +82,8 @@ public class AutorBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Datos Modificados"));
         return "TblAutor.xhtml?faces-redirect=true";
     }
-
+  public String insertarAutor() {
+        AutorFacade.create(AutorSeleccionado);
+            return "TblAutor.xhtml?faces-redirect=true";
+    }
 }
