@@ -76,5 +76,11 @@ public class AutorBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Datos Eliminados"));
         return "TblAutor.xhtml?faces-redirect=true";
     }
+    
+    public String actualizarAutor() {
+        AutorFacade.edit(AutorSeleccionado);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Datos Modificados"));
+        return "TblAutor.xhtml?faces-redirect=true";
+    }
 
 }

@@ -56,7 +56,7 @@ public class AlumnoBean implements Serializable{
         return "TblAlumnos.xhtml?faces-redirect=true";
     }
 
-    public String actualizarAlumno() {
+    public String actualizarAutor() {
         alumnoFacade.edit(alumnoSeleccionado);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Datos Modificados"));
         return "TblAlumnos.xhtml?faces-redirect=true";
