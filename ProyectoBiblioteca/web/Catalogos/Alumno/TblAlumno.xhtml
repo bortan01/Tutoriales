@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../TemplatePrincipal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="frmAlumnos" acceptcharset="ISO-8859-1">
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+
+            <!-- widgetVar es el nombre de la variable del lado del cliente que tiene varias responsabilidades como la mejora progresiva del marcado, la comunicación con el lado del servidor a través de ajax y más-->
+            <p:dataTable id="tablaAlumnos"   value="#{alumnoBean.lstAlumno}"  var="alumno"         
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         filteredValue="#{alumnoBean.lstdatosAlumnoFiltrada}"
+                         widgetVar="wTablaAlumnos">
+                <f:facet name="header">
+
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px" 
+                                     onkeyup="PF('wTablaAlumnos').filter()"/>
+                        <p:commandButton action="FrmAlumnos.xhtml?faces-redirect=true"
+                                         icon="ui-icon-circle-plus"/>
+                    </p:outputPanel>                    
+                </f:facet>
+
+                <p:column headerText="Carnet" filterBy="#{alumno.carnet}">
+                    <h:outputLabel value="#{alumno.carnet}"/>
+                </p:column>
+
+                <p:column headerText="Nombre" filterBy="#{alumno.nombre}">
+                    <h:outputLabel value="#{alumno.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Apellido" filterBy="#{alumno.apellido}">
+                    <h:outputLabel value="#{alumno.apellido}"/>
+                </p:column>
+
+                <p:column headerText="Dirección" filterBy="#{alumno.direccion}">
+                    <h:outputLabel value="#{alumno.direccion}"/>
+                </p:column>
+
+                <p:column headerText="Fecha de Nacimiento" filterBy="#{alumno.fechanacimiento}">
+                    <p:calendar disabled="true" value="#{alumno.fechanacimiento}"/>
+                </p:column>
+
+                <p:column headerText="Fecha de Ingreso" filterBy="#{alumno.fechaingreso}">
+                    <p:calendar disabled="true" value="#{alumno.fechaingreso}"/>
+                </p:column>
+
+                <p:column headerText="Género" filterBy="#{alumno.genero}">
+                    <h:outputLabel value="#{alumno.genero}"/>
+                </p:column>
+
+                <p:column headerText="Estado" filterBy="#{alumno.estado}">
+                    <h:outputLabel value="#{alumno.estado == true ? 'ACTIVO':'INACTIVO'}"/>
+                </p:column>
+
+                
+                <p:column headerText="Acciones" style="width: 12%">
+                    <p:panelGrid>
+                        
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();"
+                                             ajax="true" update="formModificar">
+                                <f:setPropertyActionListener 
+                                    target="#{alumnoBean.alumnoSeleccionado}" 
+                                    value="#{alumno}"/>
+                            </p:commandButton>
+                        </p:column>
+                        
+                        
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();" 
+                                             ajax="true" update="frmAlumnos:tablaAlumnos">
+                                <f:setPropertyActionListener 
+                                    target="#{alumnoBean.alumnoSeleccionado}" 
+                                    value="#{alumno}"/>
+                            </p:commandButton>
+                        </p:column>
+                        
+                    </p:panelGrid>
+                </p:column>
+                
+                
+                
+            </p:dataTable>
+        </h:form>
+
+        
+        
+        <p:confirmDialog message="¿Realmente desea borrar el registro?" 
+                         header="Mensaje de confirmación"
+                         widgetVar="confirmacion" >
+            <h:form>
+                <p:commandButton id="confirm" value="Si" 
+                                 oncomplete="PF('confirmacion').hide()" 
+                                 actionListener="#{alumnoBean.eliminarAlumno()}"/>
+                
+                <p:commandButton id="decline" value="No" 
+                                 onclick="PF('confirmacion').hide()" 
+                                 type="button"/>
+            </h:form>
+        </p:confirmDialog>
+
+        
+        
+        <h:form id="formModificar"  >
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificación de datos del Alumno" >
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="carnet" value="CARNET"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText id="carnet" value="#{alumnoBean.alumnoSeleccionado.carnet}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="nombres" value="NOMBRE"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="nombres" value="#{alumnoBean.alumnoSeleccionado.nombre}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="apellidos" value="APELLIDO"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="apellidos" value="#{alumnoBean.alumnoSeleccionado.apellido}"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="direccion" value="DIRECCION"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText id="direccion" value="#{alumnoBean.alumnoSeleccionado.direccion}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="fechanacimiento" value="FECHA DE NACIMIENTO"/>
+                            </p:column>
+                            <p:column>
+                                <p:calendar id="fechanacimiento" value="#{alumnoBean.alumnoSeleccionado.fechanacimiento}"
+                                            showOn="button" pattern="dd-MM-yyyy" navigator="true"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="fechaingreso" value="FECHA DE INGRESO"/>
+                            </p:column>
+                            <p:column>
+                                <p:calendar id="fechaingreso" value="#{alumnoBean.alumnoSeleccionado.fechaingreso}"
+                                            showOn="button" pattern="dd-MM-yyyy" navigator="true"/>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="TIPO DE GENERO"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu  value="#{alumnoBean.alumnoSeleccionado.genero}">
+                                    <f:selectItem itemLabel="Seleccione genero"  itemValue="" />
+                                    <f:selectItems value="#{alumnoBean.opcionesGenero}" />
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+
+                        <p:row> 
+                            <p:column>
+                                <p:outputLabel for="activo" value="ESTADO"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectBooleanCheckbox id="activo" value="#{alumnoBean.alumnoSeleccionado.estado}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:commandButton value="Guardar cambios"
+                                                 actionListener="#{alumnoBean.actualizarAlumno()}"/>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

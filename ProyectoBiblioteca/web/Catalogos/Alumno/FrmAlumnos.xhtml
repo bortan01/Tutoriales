@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../TemplatePrincipal/TemplatePrincipal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form>
+            <p:panel  header="Nuevo Alumno">
+                <p:panelGrid  columns="2" style="width:100%">
+                    <p:outputLabel value="Carnet"/>
+                    <p:inputText value="#{alumnoBean.alumnoSeleccionado.carnet}"/>
+
+
+                    <p:outputLabel value="Nombre"/>
+                    <p:inputText value="#{alumnoBean.alumnoSeleccionado.nombre}"
+                                 size="30" required="true" 
+                                 style="width:1080px;margin-left:-4px;" id="nombre">                         
+                        <f:validateLength maximum="25"/>
+                    </p:inputText>
+
+
+                    <p:outputLabel value="Apellido"/>
+                    <p:inputText value="#{alumnoBean.alumnoSeleccionado.apellido}"
+                                 required="true" 
+                                 style="width:1080px;margin-left:-4px;" id="apellido">
+                        <f:validateLength maximum="25"/>
+                    </p:inputText>
+
+                    <p:outputLabel value="Direccion"/>
+                    <p:inputText value="#{alumnoBean.alumnoSeleccionado.direccion}"
+                                 required="true" 
+                                 style="width:1080px;margin-left:-4px;" id="direccion">
+                        <f:validateLength maximum="300"/>
+                    </p:inputText>
+
+
+                    <p:outputLabel value="Fecha de Nacimiento"/>
+                    <p:calendar value="#{alumnoBean.alumnoSeleccionado.fechanacimiento}" locale="de" 
+                                navigator="true" pattern="dd-MM-yyyy" />
+
+                    <p:outputLabel value="Fecha de Ingreso"/>
+                    <p:calendar value="#{alumnoBean.alumnoSeleccionado.fechaingreso}" locale="es_ES"
+                                navigator="true" pattern="dd-MM-yyyy" />
+
+
+                    <h:outputText value="Tipo de genero"></h:outputText>
+                    <p:selectOneMenu  value="#{alumnoBean.alumnoSeleccionado.genero}">
+                        <f:selectItem itemLabel="Seleccione tipo de genero"  itemValue="" />
+                        <f:selectItems value="#{alumnoBean.opcionesGenero}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Estado"/>
+                    <p:selectBooleanCheckbox  value="#{alumnoBean.alumnoSeleccionado.estado}"/>
+                </p:panelGrid>
+
+                <f:facet name="footer">     
+                    <p:commandButton  id="guardar" value="Guardar" icon="ui-icon-check" 
+                                      style="margin:0" action="#{alumnoBean.insertarAlumno()}"/>
+                    <p:commandButton id="cancelar" value="Cancelar" icon="ui-icon-circle-close" 
+                                     style="margin:0" action="TblAlumnos" process="@this"/>   
+                </f:facet>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
