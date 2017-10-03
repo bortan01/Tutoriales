@@ -71,7 +71,10 @@ public class AutorBean implements Serializable {
         this.lstdatosAutorFiltrada = lstdatosAutorFiltrada;
     }
 
-    
-    
-    
+    public String eliminarAutor() {
+        AutorFacade.remove(AutorSeleccionado);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Datos Eliminados"));
+        return "TblAutor.xhtml?faces-redirect=true";
+    }
+
 }

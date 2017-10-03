@@ -11,7 +11,7 @@
             <!--> este es para colocar mensajes</!-->
             <p:growl autoUpdate="true" showDetail="true"/>
             <p:messages autoUpdate="true" closable="true" showDetail="true"/>
-            
+
             <p:dataTable id="tablaAutores" value="#{autorBean.lstAutor}" var="VariableAutor"
                          paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"
@@ -22,11 +22,11 @@
                         <p:outputLabel value="Busqueda" for="globalFilter"/>
                         <p:inputText id="globalFilter" style="width: 500px" 
                                      onkeyup="PF('wTablaAutor').filter()"/>
-                        <p:commandButton action="FrmAlumnos.xhtml?faces-redirect=true"
+                        <p:commandButton action="FrmAutor.xhtml?faces-redirect=true"
                                          icon="ui-icon-circle-plus"/>
                     </p:outputPanel> 
                 </f:facet>
-                
+
                 <p:column headerText="Codigo Autor" filterBy="#{VariableAutor.codigoautor}">
                     <h:outputLabel value="#{VariableAutor.codigoautor}"/>
                 </p:column>
@@ -35,7 +35,7 @@
                     <h:outputLabel value="#{VariableAutor.nombreautor}"/>
                 </p:column>
 
-                 <p:column headerText="Acciones" style="width: 12%">
+                <p:column headerText="Acciones" style="width: 12%">
                     <p:panelGrid>
                         <p:column headerText="">
                             <!-->el dlg modificar es para mostrar el mensaje</!-->
@@ -46,8 +46,8 @@
                                     value="#{VariableAutor}"/>
                             </p:commandButton>
                         </p:column>
-                        
-                        
+
+
                         <p:column headerText="">
                             <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();" ajax="true" update="frmAutor:tablaAutores"><!-->tabla autores es el id de la tabla</!-->
                                 <f:setPropertyActionListener 
@@ -55,15 +55,28 @@
                                     value="#{VariableAutor}"/>
                             </p:commandButton>
                         </p:column>
-                        
+
                     </p:panelGrid>
                 </p:column>
-                
+
             </p:dataTable>
-            
         </h:form>
-        
-          <h:form id="formModificar"  >
+            <p:confirmDialog message="¿Realmente desea borrar el registro?" 
+                             header="Mensaje de confirmación"
+                             widgetVar="confirmacion" >
+                <h:form>
+                    <p:commandButton id="confirm" value="Si" 
+                                     oncomplete="PF('confirmacion').hide()" 
+                                     actionListener="#{autorBean.eliminarAutor()}"/>
+
+                    <p:commandButton id="decline" value="No" 
+                                     onclick="PF('confirmacion').hide()" 
+                                     type="button"/>
+                </h:form>
+            </p:confirmDialog>
+
+
+        <h:form id="formModificar"  >
             <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificación de datos del Alumno" >
                 <p:panel header="Modificar">
                     <p:panelGrid styleClass="sinBorde">
@@ -77,74 +90,19 @@
                         </p:row>
                         <p:row>
                             <p:column>
-                                <p:outputLabel for="nombres" value="NOMBRE"/>
+                                <p:outputLabel for="nombres" value="NOMBRE DE AUTOR"/>
                             </p:column>
                             <p:column>
-                                <p:inputText id="nombres" value="#{alumnoBean.alumnoSeleccionado.nombre}"/>
+                                <p:inputText id="nombres" value="#{autorBean.autorSeleccionado.nombreautor}"/>
                             </p:column>
                         </p:row>
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel for="apellidos" value="APELLIDO"/>
-                            </p:column>
-                            <p:column>
-                                <p:inputText id="apellidos" value="#{alumnoBean.alumnoSeleccionado.apellido}"/>
-                            </p:column>
-                        </p:row>
-
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel for="direccion" value="DIRECCION"/>
-                            </p:column>
-                            <p:column>
-                                <p:inputText id="direccion" value="#{alumnoBean.alumnoSeleccionado.direccion}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel for="fechanacimiento" value="FECHA DE NACIMIENTO"/>
-                            </p:column>
-                            <p:column>
-                                <p:calendar id="fechanacimiento" value="#{alumnoBean.alumnoSeleccionado.fechanacimiento}"
-                                            showOn="button" pattern="dd-MM-yyyy" navigator="true"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel for="fechaingreso" value="FECHA DE INGRESO"/>
-                            </p:column>
-                            <p:column>
-                                <p:calendar id="fechaingreso" value="#{alumnoBean.alumnoSeleccionado.fechaingreso}"
-                                            showOn="button" pattern="dd-MM-yyyy" navigator="true"/>
-                            </p:column>
-                        </p:row>
-
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel value="TIPO DE GENERO"/>
-                            </p:column>
-                            <p:column>
-                                <p:selectOneMenu  value="#{alumnoBean.alumnoSeleccionado.genero}">
-                                    <f:selectItem itemLabel="Seleccione genero"  itemValue="" />
-                                    <f:selectItems value="#{alumnoBean.opcionesGenero}" />
-                                </p:selectOneMenu>
-                            </p:column>
-                        </p:row>
-
-                        <p:row> 
-                            <p:column>
-                                <p:outputLabel for="activo" value="ESTADO"/>
-                            </p:column>
-                            <p:column>
-                                <p:selectBooleanCheckbox id="activo" value="#{alumnoBean.alumnoSeleccionado.estado}"/>
-                            </p:column>
-                        </p:row>
-                        <p:row>
+                         <p:row>
                             <p:column>
                                 <h:commandButton value="Guardar cambios"
                                                  actionListener="#{alumnoBean.actualizarAlumno()}"/>
                             </p:column>
                         </p:row>
+
                     </p:panelGrid>
                 </p:panel>
             </p:dialog>
