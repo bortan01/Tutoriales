@@ -70,17 +70,17 @@ public class CategoriaBean  implements Serializable{
     public String eliminarCategoria() {
         CategoriaFacade.remove(CategoriaSeleccionada);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Datos Eliminados"));
-        return "TblAutor.xhtml?faces-redirect=true";
+        return "tablaCategoria.xhtml?faces-redirect=true";
     }
     
     public String actualizaCategoria() {
         CategoriaFacade.edit(CategoriaSeleccionada);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "informacion", "Datos Modificados"));
-        return "TblAutor.xhtml?faces-redirect=true";
+        return "tablaCategoria.xhtml?faces-redirect=true";
     }
   public String insertaCategoria() {
         CategoriaFacade.create(CategoriaSeleccionada);
-            return "TblAutor.xhtml?faces-redirect=true";
+            return "tablaCategoria.xhtml?faces-redirect=true";
     }
     
     
