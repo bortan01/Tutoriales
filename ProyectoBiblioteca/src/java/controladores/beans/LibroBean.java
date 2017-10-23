@@ -14,10 +14,6 @@ import session.beans.LibroFacade;
 import utils.general.AutoCompleteBeanAutor;
 import utils.general.AutoCompleteBeanCatLib;
 
-/**
- *
- * @author Emily
- */
 @ManagedBean(name = "libroBean")
 @ViewScoped
 public class LibroBean implements Serializable {

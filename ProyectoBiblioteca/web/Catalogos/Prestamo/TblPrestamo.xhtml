@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../TemplatePrincipal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="frmPrestamo" acceptcharset="ISO-8859-1">
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+
+            <!-- <p:dataTable id="tablaLibros" value=" var="cliente" -->
+            <p:dataTable id="tablaPrestamo"   value="#{prestamoAlumnoBean.lstPrestamos}"  var="variable_prestamo"         
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         filteredValue="#{prestamoAlumnoBean.lstdatosLibroFiltrada}"
+                         widgetVar="wTablaLibros">
+                <f:facet name="header">
+
+
+
+
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px" 
+                                     onkeyup="PF('wTablaLibros').filter()"/>
+                        <p:commandButton action="FrmPrestamo.xhtml?faces-redirect=true"
+                                         icon="ui-icon-circle-plus"/>
+                    </p:outputPanel>                    
+                </f:facet>
+
+
+                <p:column headerText="ALUMNO" filterBy="#{variable_prestamo.carnetAlumno.nombre}">
+                    <h:outputLabel value="#{variable_prestamo.carnetAlumno.nombre}"/>
+                </p:column>
+
+                <p:column headerText="LIBRO" filterBy="#{variable_prestamo.codigoLibro.titulolibro}">
+                    <h:outputLabel value="#{variable_prestamo.codigoLibro.titulolibro}"/>
+                </p:column>
+
+                <p:column headerText="FECHA DE PRESTAMO" filterBy="#{variable_prestamo.fechaPrestamo}">
+                    <h:outputLabel value="#{variable_prestamo.fechaPrestamo}"/>
+                </p:column>
+                
+                <p:column headerText="FECHA DE DEVOLUCION" filterBy="#{variable_prestamo.fechaDevolucion}">
+                    <h:outputLabel value="#{variable_prestamo.fechaDevolucion}"/>
+                </p:column>
+
+
+                <p:column headerText="CANTIDAD DE PRESTAMO" filterBy="#{variable_prestamo.cantidadprestamo}">
+                    <h:outputLabel value="#{variable_prestamo.cantidadprestamo}"/>
+                </p:column>
+
+                <p:column headerText="Acciones" style="width: 20%">
+                    <p:panelGrid>
+                       
+                    </p:panelGrid>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="bottom">
+        bottom
+    </ui:define>
+
+</ui:composition>

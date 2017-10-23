@@ -13,6 +13,7 @@ import utils.lista.ListasLibros;
 @SessionScoped
 public class AutoCompleteBeanLibro implements Serializable {
 
+    ///a que hace referenca listas libros
     @ManagedProperty("#{listasLibros}")
     ListasLibros libroData;
     Libro libro;
