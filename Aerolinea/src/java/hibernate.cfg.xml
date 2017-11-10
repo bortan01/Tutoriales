@@ -6,5 +6,12 @@
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/aerolinea?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
+    <mapping class="com.aerolinea.entidad.Reservacion"/>
+    <mapping class="com.aerolinea.entidad.Rol"/>
+    <mapping class="com.aerolinea.entidad.Aeropuerto"/>
+    <mapping class="com.aerolinea.entidad.Vuelo"/>
+    <mapping class="com.aerolinea.entidad.Avion"/>
+    <mapping class="com.aerolinea.entidad.Usuario"/>
+    <mapping class="com.aerolinea.entidad.Pais"/>
   </session-factory>
 </hibernate-configuration>
