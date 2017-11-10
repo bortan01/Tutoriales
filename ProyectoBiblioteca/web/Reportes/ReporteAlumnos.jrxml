@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c495950e-cdff-4c73-9c8e-eee7992451ac">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT * From alumno ]]>
+	</queryString>
+	<field name="carnet" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellido" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="fechanacimiento" class="java.sql.Date"/>
+	<field name="fechaingreso" class="java.sql.Date"/>
+	<field name="genero" class="java.lang.String"/>
+	<field name="estado" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="11" width="190" height="20" uuid="af423c20-8efb-4bc6-8566-0987e6b5be31"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISTEMA BIBLIOTECARIO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="22" width="100" height="20" uuid="d824c1ca-e1b2-4f43-acc0-947860573904"/>
+				<text><![CDATA[carnet]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="25" width="100" height="20" uuid="1f27d2cd-fc57-4a80-9b2e-3c2d0f9d970c"/>
+				<text><![CDATA[nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="25" width="100" height="20" uuid="72ca5e4c-2f9f-4589-a43d-d95bda9c058a"/>
+				<text><![CDATA[apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="22" width="100" height="20" uuid="39fcb19c-ba47-4951-ab17-8255da99e4cd"/>
+				<text><![CDATA[genero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="25" width="100" height="20" uuid="d7f531cd-2a2b-47c8-a56b-a420476c5036"/>
+				<text><![CDATA[fechaingreso]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="25" width="100" height="20" uuid="7d28313e-d917-4560-99a7-907950cfd591"/>
+				<textFieldExpression><![CDATA[$F{carnet}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="25" width="100" height="20" uuid="eb5ccb1a-21b9-4e6e-b8e2-ba06f53cfada"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="25" width="100" height="20" uuid="b4cbc1e3-9a82-4e3f-a66b-3ab3b0f508a0"/>
+				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="25" width="100" height="20" uuid="ff7fd787-4b2f-4969-9482-e68a1697adae"/>
+				<textFieldExpression><![CDATA[$F{genero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="25" width="37" height="20" uuid="87f4d8fd-eae3-4624-9636-e4ecd084e8a4"/>
+				<textFieldExpression><![CDATA[$F{fechaingreso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="45" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="315" y="22" width="100" height="20" uuid="648f6481-8fbc-463a-8a06-05a6e9c92591"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

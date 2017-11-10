@@ -21,7 +21,7 @@ public class AutoCompleteBeanAutor implements Serializable{
         List<Autor> allAutor = getAutorData().getLstAutor();
         List<Autor> filterAutor = new ArrayList<Autor>();
         for (Autor autorSelected : allAutor) {
-            if(autorSelected.getCodigoautor().toLowerCase().startsWith(query) || autorSelected.getNombreautor().toLowerCase().startsWith(query)){                
+            if(autorSelected.getNombreautor().toLowerCase().startsWith(query)){                
                 filterAutor.add(autorSelected);
             }
         }

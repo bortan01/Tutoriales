@@ -72,7 +72,7 @@
                         <p:column headerText="">
                             <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();"
                                              ajax="true" update="formModificar">
-                                <f:setPropertyActionListener   target="#{libroBean.libroSelected}"   value="#{libro}"/>
+                                <f:setPropertyActionListener target="#{libroBean.libroSelected}"   value="#{libro}"/>
                                 <f:setPropertyActionListener target="#{autoCompleteBeanAutor.autor}" value="#{libro.codigoautor}" />  
                                 <f:setPropertyActionListener target="#{autoCompleteBeanCategLibro.categorialibro}" value="#{libro.codigocategoria}" />  
                             </p:commandButton>
@@ -86,12 +86,7 @@
                 </p:column>
             </p:dataTable>
         </h:form>
-
-
-
-
-
-        <p:confirmDialog message="¿Realmente desea borrar el registro?" 
+   <p:confirmDialog message="¿Realmente desea borrar el registro?" 
                          header="Mensaje de confirmación"
                          widgetVar="confirmacion">
             <h:form>
